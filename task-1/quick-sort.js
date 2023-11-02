@@ -16,4 +16,9 @@ function quickSort(arr) {
 }
 
 const data = Array.from(Array(100000), () => Math.floor(Math.random() * 100) + 1);
+
+console.time('Quick sort execution time');
 const sortedData = quickSort(data);
+console.timeEnd('Quick sort execution time');
+
+console.log(`Array length: ${data.length}`);
