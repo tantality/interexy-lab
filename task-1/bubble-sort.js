@@ -13,7 +13,7 @@ function bubbleSort(arr) {
 const data = Array.from(Array(100000), () => Math.floor(Math.random() * 100) + 1);
 
 console.time('Bubble sort execution time');
-const sortedData = bubbleSort(data);
+bubbleSort(data);
 console.timeEnd('Bubble sort execution time');
 
 console.log(`Array length: ${data.length}`);
