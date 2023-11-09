@@ -4,3 +4,39 @@
   grid-template-rows: 1fr;
   min-height: 100vh;
 }
+
+.content__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  padding: 5%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-rows: repeat(2, max-content);
+  gap: 80px 50px;
+  align-items: center;
+  align-content: center;
+  height: 100%;
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+.rectangle {
+  border: 1px solid black;
+  padding: 15px;
+  min-height: 150px;
+}
+
+.square {
+  width: 60px;
+  height: 60px;
+  background-color: chartreuse;
+}
