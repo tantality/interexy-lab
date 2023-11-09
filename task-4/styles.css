@@ -30,15 +30,34 @@
 }
 
 .rectangle {
+  position: relative;
   border: 1px solid black;
   padding: 15px;
   min-height: 150px;
+}
+
+.rectangle__square {
+  position: absolute;
 }
 
 .square {
   width: 60px;
   height: 60px;
   background-color: chartreuse;
+}
+
+.square_side-to-side-keyframes-animation {
+  animation: side-to-side 2s linear infinite alternate;
+}
+
+@keyframes side-to-side {
+  0% {
+    left: 15px;
+  }
+
+  100% {
+    left: calc(100% - 75px);
+  }
 }
 
 @media (max-width: 768px) {
