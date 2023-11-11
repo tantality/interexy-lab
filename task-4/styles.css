@@ -50,6 +50,14 @@
   animation: side-to-side 2s linear infinite alternate;
 }
 
+.square_side-to-side-transition-animation {
+  transition: transform 2s ease-in-out;
+}
+
+body:hover .square_side-to-side-transition-animation {
+  transform: translateX(300px);
+}
+
 @keyframes side-to-side {
   0% {
     left: 15px;
