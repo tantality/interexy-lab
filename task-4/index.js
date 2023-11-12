@@ -63,9 +63,11 @@ function determineAnimationDirection(currentDirection, squareLeftPositions) {
   const { firstLeftPosition, lastLeftPosition, currentLeftPosition } = squareLeftPositions;
 
   const isDirectionToRight = currentDirection === DIRECTION.TO_RIGHT;
+  const isCurrentLeftPositionEqualToLastOne = currentLeftPosition === lastLeftPosition;
+  const isCurrentLeftPositionEqualToFirstOne = currentLeftPosition === firstLeftPosition;
 
-  if (currentLeftPosition === lastLeftPosition && isDirectionToRight) return DIRECTION.TO_LEFT;
-  if (currentLeftPosition === firstLeftPosition && !isDirectionToRight) return DIRECTION.TO_RIGHT;
+  if (isCurrentLeftPositionEqualToLastOne && isDirectionToRight) return DIRECTION.TO_LEFT;
+  if (isCurrentLeftPositionEqualToFirstOne && !isDirectionToRight) return DIRECTION.TO_RIGHT;
 
   return currentDirection;
 }
