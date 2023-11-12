@@ -4,50 +4,50 @@ const DIRECTION = {
   TO_RIGHT: 1,
 };
 
-function animateSquareUsingSetTimeout(square) {
-  const animationConfig = {
+function animateSquareFromSideToSideUsingSetTimeout(square) {
+  const animationData = {
     direction: DIRECTION.TO_RIGHT,
-    leftPosition: PADDING_LEFT,
+    currentLeftPosition: PADDING_LEFT,
   };
 
-  setInterval(() => drawFrame(square, animationConfig), 5);
+  setInterval(() => drawFrame(square, animationData), 5);
 }
 
-function animateSquareUsingRequestAnimationFrame(square) {
-  const animationConfig = {
+function animateSquareFromSideToSideUsingRequestAnimationFrame(square) {
+  const animationData = {
     direction: DIRECTION.TO_RIGHT,
-    leftPosition: PADDING_LEFT,
+    currentLeftPosition: PADDING_LEFT,
   };
 
   requestAnimationFrame(frame);
 
   function frame() {
-    drawFrame(square, animationConfig);
+    drawFrame(square, animationData);
     requestAnimationFrame(frame);
   }
 }
 
-function drawFrame(square, animationConfig) {
-  let { direction, leftPosition } = animationConfig;
+function drawFrame(square, animationData) {
+  let { currentDirection, currentLeftPosition } = animationData;
 
-  const lastPossibleLeftPosition = calculateLastPossibleLeftPosition(square);
-  const positions = {
-    firstPossibleLeftPosition: PADDING_LEFT,
-    lastPossibleLeftPosition,
-    leftPosition,
+  const lastLeftPosition = calculateLastLeftPosition(square);
+  const squareLeftPositions = {
+    firstLeftPosition: PADDING_LEFT,
+    lastLeftPosition,
+    currentLeftPosition,
   };
 
-  direction = determineAnimationDirection(animationConfig.direction, positions);
+  currentDirection = determineAnimationDirection(currentDirection, squareLeftPositions);
 
-  leftPosition = direction == DIRECTION.TO_LEFT ? leftPosition - 1 : leftPosition + 1;
+  currentLeftPosition = currentDirection == DIRECTION.TO_LEFT ? currentLeftPosition - 1 : currentLeftPosition + 1;
 
-  square.style.left = leftPosition + "px";
+  square.style.left = currentLeftPosition + "px";
 
-  animationConfig.direction = direction;
-  animationConfig.leftPosition = leftPosition;
+  animationData.direction = currentDirection;
+  animationData.currentLeftPosition = currentLeftPosition;
 }
 
-function calculateLastPossibleLeftPosition(square) {
+function calculateLastLeftPosition(square) {
   const squareWidth = square.getBoundingClientRect().width;
   const roundedSquareWidth = Math.round(squareWidth);
 
@@ -59,19 +59,19 @@ function calculateLastPossibleLeftPosition(square) {
   return lastLeftPosition;
 }
 
-function determineAnimationDirection(direction, positions) {
-  const { firstPossibleLeftPosition, lastPossibleLeftPosition, leftPosition } = positions;
+function determineAnimationDirection(currentDirection, squareLeftPositions) {
+  const { firstLeftPosition, lastLeftPosition, currentLeftPosition } = squareLeftPositions;
 
-  const isDirectionToRight = direction === DIRECTION.TO_RIGHT;
+  const isDirectionToRight = currentDirection === DIRECTION.TO_RIGHT;
 
-  if (leftPosition === lastPossibleLeftPosition && isDirectionToRight) return DIRECTION.TO_LEFT;
-  if (leftPosition === firstPossibleLeftPosition && !isDirectionToRight) return DIRECTION.TO_RIGHT;
+  if (currentLeftPosition === lastLeftPosition && isDirectionToRight) return DIRECTION.TO_LEFT;
+  if (currentLeftPosition === firstLeftPosition && !isDirectionToRight) return DIRECTION.TO_RIGHT;
 
-  return direction;
+  return currentDirection;
 }
 
 const square = document.querySelector("#square-for-set-timeout-animation");
-animateSquareUsingSetTimeout(square);
+animateSquareFromSideToSideUsingSetTimeout(square);
 
 const square1 = document.querySelector("#square-for-request-animation-frame-animation");
-animateSquareUsingRequestAnimationFrame(square1);
+animateSquareFromSideToSideUsingRequestAnimationFrame(square1);
