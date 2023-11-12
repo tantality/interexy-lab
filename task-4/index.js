@@ -38,10 +38,9 @@ function drawFrame(square, animationData) {
   };
 
   currentDirection = determineAnimationDirection(currentDirection, squareLeftPositions);
+  currentLeftPosition = getUpdatedLeftPosition(currentDirection, currentLeftPosition);
 
-  currentLeftPosition = currentDirection == DIRECTION.TO_LEFT ? currentLeftPosition - 1 : currentLeftPosition + 1;
-
-  square.style.left = currentLeftPosition + "px";
+  changeSquareLeftPosition(square, currentLeftPosition);
 
   animationData.direction = currentDirection;
   animationData.currentLeftPosition = currentLeftPosition;
@@ -70,6 +69,16 @@ function determineAnimationDirection(currentDirection, squareLeftPositions) {
   if (isCurrentLeftPositionEqualToFirstOne && !isDirectionToRight) return DIRECTION.TO_RIGHT;
 
   return currentDirection;
+}
+
+function getUpdatedLeftPosition(currentDirection, currentLeftPosition) {
+  const STEP = 1;
+  if (currentDirection == DIRECTION.TO_LEFT) return currentLeftPosition - STEP;
+  else return currentLeftPosition + STEP;
+}
+
+function changeSquareLeftPosition(square, newLeftPosition) {
+  square.style.left = newLeftPosition + "px";
 }
 
 const square = document.querySelector("#square-for-set-timeout-animation");
