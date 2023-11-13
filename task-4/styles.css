@@ -47,11 +47,11 @@
 }
 
 .square_side-to-side-keyframes-animation {
-  animation: side-to-side 2s linear infinite alternate;
+  animation: side-to-side 3s linear infinite alternate;
 }
 
 .square_side-to-side-transition-animation {
-  transition: transform 2s ease-in-out;
+  transition: transform 3s linear;
 }
 
 body:hover .square_side-to-side-transition-animation {
