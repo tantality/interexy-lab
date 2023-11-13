@@ -6,7 +6,7 @@ const DIRECTION = {
 
 function animateSquareFromSideToSideUsingSetTimeout(square) {
   const animationData = {
-    direction: DIRECTION.TO_RIGHT,
+    currentDirection: DIRECTION.TO_RIGHT,
     currentLeftPosition: PADDING_LEFT,
   };
 
@@ -15,7 +15,7 @@ function animateSquareFromSideToSideUsingSetTimeout(square) {
 
 function animateSquareFromSideToSideUsingRequestAnimationFrame(square) {
   const animationData = {
-    direction: DIRECTION.TO_RIGHT,
+    currentDirection: DIRECTION.TO_RIGHT,
     currentLeftPosition: PADDING_LEFT,
   };
 
@@ -42,7 +42,7 @@ function drawFrame(square, animationData) {
 
   changeSquareLeftPosition(square, currentLeftPosition);
 
-  animationData.direction = currentDirection;
+  animationData.currentDirection = currentDirection;
   animationData.currentLeftPosition = currentLeftPosition;
 }
 
