@@ -10,7 +10,12 @@ function animateSquareFromSideToSideUsingSetTimeout(square) {
     currentLeftPosition: PADDING_LEFT,
   };
 
-  setInterval(() => drawFrame(square, animationData), 5);
+  const MS = 5;
+
+  setTimeout(function animate() {
+    drawFrame(square, animationData);
+    setTimeout(animate, MS);
+  }, MS);
 }
 
 function animateSquareFromSideToSideUsingRequestAnimationFrame(square) {
@@ -19,11 +24,11 @@ function animateSquareFromSideToSideUsingRequestAnimationFrame(square) {
     currentLeftPosition: PADDING_LEFT,
   };
 
-  requestAnimationFrame(frame);
+  requestAnimationFrame(animate);
 
-  function frame() {
+  function animate() {
     drawFrame(square, animationData);
-    requestAnimationFrame(frame);
+    requestAnimationFrame(animate);
   }
 }
 
