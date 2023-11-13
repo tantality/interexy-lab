@@ -91,3 +91,6 @@ animateSquareFromSideToSideUsingSetTimeout(square);
 
 const square1 = document.querySelector("#square-for-request-animation-frame-animation");
 animateSquareFromSideToSideUsingRequestAnimationFrame(square1);
+
+const worker = new Worker("./sorts/bubble-sort-for-worker.js");
+worker.postMessage("");
