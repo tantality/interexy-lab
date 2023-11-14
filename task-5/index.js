@@ -6,6 +6,9 @@ async function main() {
     const characterPageCount = charactersData.info.pages;
     const pagesData = { step: 2, count: characterPageCount };
     const characterPages = await getCharacterPages(pagesData);
+
+    const characters = getCharacters(characterPages);
+    console.log(characters);
   } catch (e) {
     console.log(e.message);
   }
@@ -17,11 +20,20 @@ async function getCharacterPages(pagesData) {
 
   for (let i = step; i <= count; i += step) {
     const promise = RickAndMortyApi.getAllCharacters({ page: i });
-    console.log(promise);
     characterPagePromises.push(promise);
   }
 
   return await Promise.all(characterPagePromises);
+}
+
+function getCharacters(characterPages) {
+  const characters = [];
+
+  for (let page of characterPages) {
+    characters.push(...page.results);
+  }
+
+  return characters;
 }
 
 main();
