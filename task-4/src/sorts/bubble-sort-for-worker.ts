@@ -1,4 +1,4 @@
-onmessage = async (e) => {
+onmessage = async (e: MessageEvent): Promise<void> => {
   const data = Array.from(Array(50000), () => Math.floor(Math.random() * 100) + 1);
 
   console.time("Bubble sort execution time");
@@ -10,7 +10,7 @@ onmessage = async (e) => {
   postMessage(sortedArr);
 };
 
-function bubbleSort(arr) {
+function bubbleSort(arr: number[]): number[] {
   for (let i = 0; i < arr.length - 1; i++) {
     for (let j = 0; j < arr.length - i - 1; j++) {
       if (arr[j] > arr[j + 1]) {
@@ -21,3 +21,5 @@ function bubbleSort(arr) {
 
   return arr;
 }
+
+export {};

@@ -1,6 +1,6 @@
-const delay = async (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const delay = async (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function bubbleSort(arr) {
+async function bubbleSort(arr: number[]): Promise<number[]> {
   const CHUNK_SIZE = 100;
   for (let i = 0; i < arr.length - 1; i++) {
     if (i % CHUNK_SIZE === 0) await delay(0);
