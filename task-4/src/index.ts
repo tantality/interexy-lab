@@ -1,3 +1,6 @@
+import "./css/reset.css";
+import "./css/styles.css";
+
 const PADDING_LEFT = 15;
 const DIRECTION = {
   TO_LEFT: -1,
