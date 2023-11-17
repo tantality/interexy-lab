@@ -1,67 +1,23 @@
 import path from "path";
-import HtmlWebpackPlugin from "html-webpack-plugin";
 import webpack from "webpack";
-import { Configuration as DevServerConfiguration } from "webpack-dev-server";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-
-interface EnvVariables {
-  mode: MODE;
-  port: number;
-}
-
-enum MODE {
-  DEVELOPMENT = "development",
-  PRODUCTION = "production",
-}
-
-const DEFAULT_VALUE = {
-  PORT: 3000,
-  MODE: MODE.DEVELOPMENT,
-};
+import { buildWebpack } from "./config/build";
+import { DEFAULT_BUILD_OPTIONS } from "./config/build/constants";
+import { BuildOptions, BuildPaths, EnvVariables } from "./config/build/types";
 
 export default (env: EnvVariables) => {
-  const isDevMode = env.mode === MODE.DEVELOPMENT;
-  const devServer: DevServerConfiguration = { port: env.port ?? DEFAULT_VALUE.PORT, open: true };
-
-  const config: webpack.Configuration = {
-    mode: env.mode ?? MODE.DEVELOPMENT,
+  const paths: BuildPaths = {
     entry: path.resolve(__dirname, "src", "index.ts"),
-    module: {
-      rules: [
-        {
-          test: /\.css$/i,
-          use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-              options: {
-                esModule: false,
-              },
-            },
-            "css-loader",
-          ],
-        },
-        {
-          test: /\.tsx?$/,
-          use: "ts-loader",
-          exclude: /node_modules/,
-        },
-      ],
-    },
-    resolve: {
-      extensions: [".tsx", ".ts", ".js"],
-    },
-    output: {
-      path: path.resolve(__dirname, "build"),
-      filename: "[name].[contenthash].js",
-      clean: true,
-    },
-    plugins: [
-      new HtmlWebpackPlugin({ template: path.resolve(__dirname, "src", "index.html") }),
-      new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),
-    ],
-    devtool: isDevMode && "inline-source-map",
-    devServer: isDevMode ? devServer : undefined,
+    output: path.resolve(__dirname, "build"),
+    html: path.resolve(__dirname, "src", "index.html"),
   };
+
+  const options: BuildOptions = {
+    mode: env.mode ?? DEFAULT_BUILD_OPTIONS.MODE,
+    port: env.port ?? DEFAULT_BUILD_OPTIONS.PORT,
+    paths,
+  };
+
+  const config: webpack.Configuration = buildWebpack(options);
 
   return config;
 };
