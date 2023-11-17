@@ -2,63 +2,81 @@ import "./css/reset.css";
 import "./css/styles.css";
 
 const PADDING_LEFT = 15;
-const DIRECTION = {
-  TO_LEFT: -1,
-  TO_RIGHT: 1,
+
+enum DIRECTION {
+  TO_LEFT = -1,
+  TO_RIGHT = 1,
+}
+
+type Animation = {
+  direction: DIRECTION;
+  squareLeftPosition: number;
 };
 
-function animateSquareFromSideToSideUsingSetTimeout(square) {
-  const animationData = {
-    currentDirection: DIRECTION.TO_RIGHT,
-    currentLeftPosition: PADDING_LEFT,
+type SquareLeftPositions = {
+  firstPosition: number;
+  lastPosition: number;
+  currentPosition: number;
+};
+
+function animateSquareFromSideToSideUsingSetTimeout(square: HTMLElement): void {
+  const currentData: Animation = {
+    direction: DIRECTION.TO_RIGHT,
+    squareLeftPosition: PADDING_LEFT,
   };
 
   const MS = 5;
 
   setTimeout(function animate() {
-    drawFrame(square, animationData);
+    drawFrame(square, currentData);
     setTimeout(animate, MS);
   }, MS);
 }
 
-function animateSquareFromSideToSideUsingRequestAnimationFrame(square) {
-  const animationData = {
-    currentDirection: DIRECTION.TO_RIGHT,
-    currentLeftPosition: PADDING_LEFT,
+function animateSquareFromSideToSideUsingRequestAnimationFrame(square: HTMLElement): void {
+  const currentData: Animation = {
+    direction: DIRECTION.TO_RIGHT,
+    squareLeftPosition: PADDING_LEFT,
   };
 
   requestAnimationFrame(animate);
 
-  function animate() {
-    drawFrame(square, animationData);
+  function animate(): void {
+    drawFrame(square, currentData);
     requestAnimationFrame(animate);
   }
 }
 
-function drawFrame(square, animationData) {
-  let { currentDirection, currentLeftPosition } = animationData;
+function drawFrame(square: HTMLElement, currentData: Animation): void {
+  let { direction, squareLeftPosition } = currentData;
 
-  const lastLeftPosition = calculateLastLeftPosition(square);
-  const squareLeftPositions = {
-    firstLeftPosition: PADDING_LEFT,
-    lastLeftPosition,
-    currentLeftPosition,
+  const lastPosition = calculateLastLeftPosition(square);
+  const positions: SquareLeftPositions = {
+    firstPosition: PADDING_LEFT,
+    lastPosition,
+    currentPosition: squareLeftPosition,
   };
 
-  currentDirection = determineAnimationDirection(currentDirection, squareLeftPositions);
-  currentLeftPosition = getUpdatedLeftPosition(currentDirection, currentLeftPosition);
+  direction = determineAnimationDirection(direction, positions);
+  squareLeftPosition = getUpdatedLeftPosition(direction, squareLeftPosition);
 
-  changeSquareLeftPosition(square, currentLeftPosition);
+  changeSquareLeftPosition(square, squareLeftPosition);
 
-  animationData.currentDirection = currentDirection;
-  animationData.currentLeftPosition = currentLeftPosition;
+  currentData.direction = direction;
+  currentData.squareLeftPosition = squareLeftPosition;
 }
 
-function calculateLastLeftPosition(square) {
+function calculateLastLeftPosition(square: HTMLElement): number {
   const squareWidth = square.getBoundingClientRect().width;
   const roundedSquareWidth = Math.round(squareWidth);
 
-  const parentWidth = square.parentNode.getBoundingClientRect().width;
+  const parentElement = square.parentElement;
+  let parentWidth: number | null = null;
+
+  if (parentElement) {
+    parentWidth = parentElement.getBoundingClientRect().width;
+  } else throw new Error("Square doesn't have a parent");
+
   const roundedParentWidth = Math.round(parentWidth);
 
   const lastLeftPosition = roundedParentWidth - roundedSquareWidth - PADDING_LEFT;
@@ -66,12 +84,12 @@ function calculateLastLeftPosition(square) {
   return lastLeftPosition;
 }
 
-function determineAnimationDirection(currentDirection, squareLeftPositions) {
-  const { firstLeftPosition, lastLeftPosition, currentLeftPosition } = squareLeftPositions;
+function determineAnimationDirection(currentDirection: DIRECTION, positions: SquareLeftPositions): DIRECTION {
+  const { firstPosition, lastPosition, currentPosition } = positions;
 
   const isDirectionToRight = currentDirection === DIRECTION.TO_RIGHT;
-  const isCurrentLeftPositionEqualToLastOne = currentLeftPosition === lastLeftPosition;
-  const isCurrentLeftPositionEqualToFirstOne = currentLeftPosition === firstLeftPosition;
+  const isCurrentLeftPositionEqualToLastOne = currentPosition === lastPosition;
+  const isCurrentLeftPositionEqualToFirstOne = currentPosition === firstPosition;
 
   if (isCurrentLeftPositionEqualToLastOne && isDirectionToRight) return DIRECTION.TO_LEFT;
   if (isCurrentLeftPositionEqualToFirstOne && !isDirectionToRight) return DIRECTION.TO_RIGHT;
@@ -79,21 +97,21 @@ function determineAnimationDirection(currentDirection, squareLeftPositions) {
   return currentDirection;
 }
 
-function getUpdatedLeftPosition(currentDirection, currentLeftPosition) {
+function getUpdatedLeftPosition(currentDirection: DIRECTION, currentLeftPosition: number): number {
   const STEP = 1;
-  if (currentDirection == DIRECTION.TO_LEFT) return currentLeftPosition - STEP;
+  if (currentDirection === DIRECTION.TO_LEFT) return currentLeftPosition - STEP;
   else return currentLeftPosition + STEP;
 }
 
-function changeSquareLeftPosition(square, newLeftPosition) {
+function changeSquareLeftPosition(square: HTMLElement, newLeftPosition: number): void {
   square.style.left = newLeftPosition + "px";
 }
 
-const square = document.querySelector("#square-for-set-timeout-animation");
+const square = document.querySelector("#square-for-set-timeout-animation") as HTMLElement;
 animateSquareFromSideToSideUsingSetTimeout(square);
 
-const square1 = document.querySelector("#square-for-request-animation-frame-animation");
+const square1 = document.querySelector("#square-for-request-animation-frame-animation") as HTMLElement;
 animateSquareFromSideToSideUsingRequestAnimationFrame(square1);
 
-const worker = new Worker("./sorts/bubble-sort-for-worker.js");
-worker.postMessage("");
+// const worker = new Worker("./sorts/bubble-sort-for-worker.js");
+// worker.postMessage("");
