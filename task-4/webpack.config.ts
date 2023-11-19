@@ -1,8 +1,8 @@
 import path from "path";
 import webpack from "webpack";
-import { buildWebpack } from "./config/build";
-import { DEFAULT_BUILD_OPTIONS } from "./config/build/constants";
-import { BuildOptions, BuildPaths, EnvVariables } from "./config/build/types";
+import { buildWebpack } from "config-build/index";
+import { DEFAULT_BUILD_OPTIONS } from "config-build/constants";
+import { BuildOptions, BuildPaths, EnvVariables } from "config-build/types";
 
 export default (env: EnvVariables) => {
   const paths: BuildPaths = {

@@ -1,4 +1,4 @@
-import { BUILD_MODE } from "../constants";
+import { BUILD_MODE } from "config-build/constants";
 
 export interface BuildPaths {
   entry: string;

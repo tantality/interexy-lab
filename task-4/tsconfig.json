@@ -12,10 +12,16 @@
     "moduleResolution": "node",
     "strictNullChecks": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["src/*"],
+      "config-build/*": ["config/build/*"]
+    }
   },
   "exclude": ["node_modules"],
   "ts-node": {
+    "require": ["tsconfig-paths/register"],
     "compilerOptions": {
       "module": "CommonJS"
     }

@@ -1,5 +1,5 @@
-import "./css/reset.css";
-import "./css/styles.css";
+import "src/css/reset.css";
+import "src/css/styles.css";
 
 const PADDING_LEFT = 15;
 
@@ -113,5 +113,5 @@ animateSquareFromSideToSideUsingSetTimeout(square);
 const square1 = document.querySelector("#square-for-request-animation-frame-animation") as HTMLElement;
 animateSquareFromSideToSideUsingRequestAnimationFrame(square1);
 
-// const worker = new Worker("./sorts/bubble-sort-for-worker.js");
-// worker.postMessage("");
+const worker = new Worker("src/sorts/bubble-sort-for-worker.js");
+worker.postMessage("");
