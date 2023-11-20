@@ -1,4 +1,4 @@
-import { axiosInstance } from "./axios.js";
+import { axiosInstance } from "./axios";
 
 class RickAndMortyApi {
   async getAllCharacters(params = {}) {

@@ -1,4 +1,4 @@
-import RickAndMortyApi from "./api/rick-and-morty/index.js";
+import RickAndMortyApi from "./api/rick-and-morty";
 
 async function main() {
   try {
@@ -9,12 +9,12 @@ async function main() {
 
     const characters = getCharacters(characterPages);
     console.log(characters);
-  } catch (e) {
+  } catch (e: any) {
     console.log(e.message);
   }
 }
 
-async function getCharacterPages(pagesData) {
+async function getCharacterPages(pagesData: any) {
   const { step, count } = pagesData;
   const characterPagePromises = [];
 
@@ -26,7 +26,7 @@ async function getCharacterPages(pagesData) {
   return await Promise.all(characterPagePromises);
 }
 
-function getCharacters(characterPages) {
+function getCharacters(characterPages: any) {
   const characters = [];
 
   for (let page of characterPages) {
