@@ -1,33 +1,42 @@
 import RickAndMortyApi from "api/rick-and-morty";
+import { CharactersWithPaginationData } from "api/rick-and-morty/types/all-characters.types";
+import { Character } from "api/rick-and-morty/types/character.types";
 
-async function main() {
+interface Page {
+  step: number;
+  count: number;
+}
+
+async function main(): Promise<void> {
   try {
-    const charactersData = await RickAndMortyApi.getAllCharacters();
-    const characterPageCount = charactersData.info.pages;
-    const pagesData = { step: 2, count: characterPageCount };
-    const characterPages = await getCharacterPages(pagesData);
+    const charactersWithPagination: CharactersWithPaginationData = await RickAndMortyApi.getAllCharacters();
+    const characterPageCount = charactersWithPagination.info.pages;
+    const data: Page = { step: 2, count: characterPageCount };
+    const characterPages: CharactersWithPaginationData[] = await getCharacterPages(data);
 
-    const characters = getCharacters(characterPages);
+    const characters: Character[] = getCharacters(characterPages);
     console.log(characters);
-  } catch (e: any) {
-    console.log(e.message);
+  } catch (error: any) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
   }
 }
 
-async function getCharacterPages(pagesData: any) {
-  const { step, count } = pagesData;
-  const characterPagePromises = [];
+async function getCharacterPages(data: Page): Promise<CharactersWithPaginationData[]> {
+  const { step, count } = data;
+  const characterPagePromises: Promise<CharactersWithPaginationData>[] = [];
 
   for (let i = step; i <= count; i += step) {
     const promise = RickAndMortyApi.getAllCharacters({ page: i });
     characterPagePromises.push(promise);
   }
 
-  return await Promise.all(characterPagePromises);
+  return Promise.all(characterPagePromises);
 }
 
-function getCharacters(characterPages: any) {
-  const characters = [];
+function getCharacters(characterPages: CharactersWithPaginationData[]): Character[] {
+  const characters: Character[] = [];
 
   for (let page of characterPages) {
     characters.push(...page.results);
