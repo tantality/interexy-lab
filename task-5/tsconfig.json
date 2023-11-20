@@ -15,7 +15,8 @@
     "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
-      "src/*": ["src/*"]
+      "src/*": ["src/*"],
+      "api/*": ["src/api/*"]
     }
   },
   "exclude": ["node_modules"],

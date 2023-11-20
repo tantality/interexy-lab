@@ -1,4 +1,4 @@
-import RickAndMortyApi from "./api/rick-and-morty";
+import RickAndMortyApi from "api/rick-and-morty";
 
 async function main() {
   try {

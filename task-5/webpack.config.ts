@@ -22,6 +22,7 @@ export default (env: EnvVariables) => {
     resolve: {
       alias: {
         src: path.resolve(cwd, "src/"),
+        api: path.resolve(cwd, "src/api/"),
       },
       extensions: [".ts", ".js"],
     },
