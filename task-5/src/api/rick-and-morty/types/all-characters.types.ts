@@ -1,10 +1,10 @@
 import { Character } from "./character.types";
 
-export interface GetAllCharactersParams {
+export interface GetCharactersWithPaginationDataParams {
   page?: number;
 }
 
-export interface AllCharacters {
+export interface CharactersWithPaginationData {
   info: Info;
   results: Character[];
 }
