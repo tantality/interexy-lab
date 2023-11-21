@@ -1,30 +1,11 @@
 import { Grid } from "@mantine/core";
 import React from "react";
+import { Character } from "../../../providers/types/character.types";
 import CharacterCard from "../character-card/character-card.component";
 
-const mockCharacters = [
-  {
-    id: 1,
-    img: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-    name: 'Rick Sanchez',
-    gender: 'Male',
-    status: 'Alive',
-    species: 'Human',
-  },
-  {
-    id: 2,
-    img: 'https://rickandmortyapi.com/api/character/avatar/2.jpeg',
-    name: 'Morty Smith',
-    gender: 'Unknown',
-    status: 'Dead',
-    species: 'Human',
-  },
-]
-
-
-class CharacterList extends React.Component {
+class CharacterList extends React.Component<{ characters: Character[] }> {
   render() {
-    const characterCards = mockCharacters.map((data) => {
+    const characterCards = this.props.characters.map((data) => {
       return (
         <Grid.Col style={{ maxWidth: '350px' }} key={data.id}>
           <CharacterCard {...data} />

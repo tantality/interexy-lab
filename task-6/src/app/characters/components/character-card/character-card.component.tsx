@@ -3,7 +3,7 @@ import React from "react";
 
 interface CharacterCardProps {
   id: number;
-  img: string;
+  image: string;
   name: string;
   gender: string;
   status: string;
@@ -12,7 +12,7 @@ interface CharacterCardProps {
 
 class CharacterCard extends React.Component<CharacterCardProps> {
   render() {
-    const { img, name, gender, status, species } = this.props;
+    const { image, name, gender, status, species } = this.props;
     const textProps = {
       fw: 400,
       size: 'lg'
@@ -28,7 +28,7 @@ class CharacterCard extends React.Component<CharacterCardProps> {
     return (
       <Card shadow="sm" padding="lg" radius="md" withBorder>
         <Card.Section>
-          <Image src={img} height={260} alt={name} />
+          <Image src={image} height={260} alt={name} />
         </Card.Section>
         <Text mt="md" mb="xs" fw={600} size="xl">{name}</Text>
         <Text {...textProps}>
