@@ -1,8 +1,14 @@
+import { Container } from "@mantine/core";
 import React from "react";
+import CharacterList from "./components/character-list/character-list.component";
 
 class AllСharactersPage extends React.Component {
   render() {
-    return <div>All characters</div>;
+    return (
+      <Container size="lg" px={30} py="lg">
+        <CharacterList />
+      </Container>
+    );
   }
 }
 
