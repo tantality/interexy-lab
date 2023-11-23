@@ -8,11 +8,12 @@ interface CharacterCardProps {
   gender: string;
   status: string;
   species: string;
+  imageHeight: number;
 }
 
 class CharacterCard extends React.Component<CharacterCardProps> {
   render() {
-    const { image, name, gender, status, species } = this.props;
+    const { image, name, gender, status, species, imageHeight } = this.props;
     const textProps = {
       fw: 400,
       size: 'lg'
@@ -28,7 +29,7 @@ class CharacterCard extends React.Component<CharacterCardProps> {
     return (
       <Card shadow="sm" padding="lg" radius="md" withBorder>
         <Card.Section>
-          <Image src={image} height={260} alt={name} />
+          <Image src={image} height={imageHeight} alt={name} />
         </Card.Section>
         <Text mt="md" mb="xs" fw={600} size="xl">{name}</Text>
         <Text {...textProps}>
