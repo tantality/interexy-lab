@@ -1,7 +1,7 @@
 import { Grid } from "@mantine/core";
 import React from "react";
 import { Link } from "react-router-dom";
-import { Character } from "../../../providers/types/character.types";
+import { Character } from "../../../../providers/types/character.types";
 import CharacterCard from "../character-card";
 
 class CharacterList extends React.Component<{ characters: Character[] }> {
