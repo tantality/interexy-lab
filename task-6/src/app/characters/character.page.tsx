@@ -1,7 +1,7 @@
 import { Container, Button, Space, Flex, Anchor } from "@mantine/core";
 import { AxiosError } from "axios";
 import React from "react";
-import rickAndMortyClient from "../../providers/rick-and-morty.client";
+import rickAndMortyClient from "providers/rick-and-morty.client";
 import CharacterCard from "./components/character-card";
 import { СharacterPageState } from "./types";
 

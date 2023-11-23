@@ -1,9 +1,9 @@
 import { Center, Container, Loader, Pagination, Space } from "@mantine/core";
 import { AxiosError } from "axios";
 import React from "react";
-import rickAndMortyClient from "../../providers/rick-and-morty.client";
+import rickAndMortyClient from "providers/rick-and-morty.client";
 import CharacterList from "./components/character-list";
-import { AllСharactersPageState } from "./types/all-character.types";
+import { AllСharactersPageState } from "./types";
 
 class AllСharactersPage extends React.Component<any, AllСharactersPageState> {
   constructor(props: any) {
