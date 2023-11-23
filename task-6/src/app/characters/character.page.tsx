@@ -68,7 +68,7 @@ class СharacterPage extends React.Component<{}, СharacterPageState> {
       <Container size="lg" px={30} py="lg" h="99vh">
         <Container maw={500}>
           <Flex direction="column" align="center">
-            {character && <CharacterCard {...character} />}
+            {character && <CharacterCard {...character} imageHeight={400} />}
             <Space h={70} />
             <Anchor href="/characters">
               <Button variant="outline" color="black" size="md" radius="md">All characters</Button>
