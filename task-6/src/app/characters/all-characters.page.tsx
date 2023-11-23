@@ -2,19 +2,8 @@ import { Center, Container, Loader, Pagination, Space } from "@mantine/core";
 import { AxiosError } from "axios";
 import React from "react";
 import rickAndMortyClient from "../../providers/rick-and-morty.client";
-import { Character } from "../../providers/types/character.types";
 import CharacterList from "./components/character-list";
-
-interface FetchData {
-  isLoading: boolean;
-  error: null | AxiosError | Error;
-}
-
-interface AllСharactersPageState extends FetchData {
-  characters: Character[];
-  currentPage: number;
-  pageCount: number | null;
-}
+import { AllСharactersPageState } from "./types/all-character.types";
 
 class AllСharactersPage extends React.Component<any, AllСharactersPageState> {
   constructor(props: any) {

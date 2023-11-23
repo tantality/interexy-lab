@@ -2,20 +2,11 @@ import { Container, Button, Space, Flex, Anchor } from "@mantine/core";
 import { AxiosError } from "axios";
 import React from "react";
 import rickAndMortyClient from "../../providers/rick-and-morty.client";
-import { Character } from "../../providers/types/character.types";
 import CharacterCard from "./components/character-card";
+import { СharacterPageState } from "./types";
 
-interface FetchData {
-  isLoading: boolean;
-  error: null | AxiosError | Error;
-}
-
-interface СharacterPageState extends FetchData {
-  character: Character | null;
-}
-
-class СharacterPage extends React.Component<{}, СharacterPageState> {
-  constructor(props: never) {
+class СharacterPage extends React.Component<any, СharacterPageState> {
+  constructor(props: any) {
     super(props);
 
     this.state = {

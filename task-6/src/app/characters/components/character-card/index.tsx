@@ -1,15 +1,6 @@
 import { Card, Image, Text } from "@mantine/core";
 import React from "react";
-
-interface CharacterCardProps {
-  id: number;
-  image: string;
-  name: string;
-  gender: string;
-  status: string;
-  species: string;
-  imageHeight: number;
-}
+import { CharacterCardProps } from "./types";
 
 class CharacterCard extends React.Component<CharacterCardProps> {
   render() {
