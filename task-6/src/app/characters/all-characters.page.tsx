@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import React from "react";
 import rickAndMortyClient from "../providers/rick-and-morty.client";
 import { Character } from "../providers/types/character.types";
-import CharacterList from "./components/character-list/character-list.component";
+import CharacterList from "./components/character-list";
 
 interface FetchData {
   isLoading: boolean;
