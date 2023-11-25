@@ -1,6 +1,6 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { Character } from "providers/types/character.types";
 import { FC } from "react";
-import { Character } from "types";
 
 interface CharacterCardProps {
   character: Character;

@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
+import { Character } from "providers/types/character.types";
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { Character } from "types";
 import CharacterCard from "./character-card.comp";
 
 interface CharacterCardsProps {
