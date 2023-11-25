@@ -1,39 +1,32 @@
 import { Pagination } from "@mui/material";
 import { Stack } from "@mui/system";
-import { FC } from "react";
-import { Character } from "types";
+import { useAsync } from "hooks";
+import rickAndMortyClient from "providers/rick-and-morty.client";
+import { CharactersWithPaginationData } from "providers/types/all-characters.types";
+import { ChangeEvent, FC, useState } from "react";
 import CharacterCards from "./character-cards.comp";
 
 const CharacterList: FC = () => {
-  const characters: Character[] = [{
-    id: 361,
-    name: "Toxic Rick",
-    status: "Dead",
-    species: "Humanoid",
-    type: "Rick's Toxic Side",
-    gender: "Male",
-    origin: {
-      name: "Alien Spa",
-      url: "https://rickandmortyapi.com/api/location/64"
-    },
-    location: {
-      name: "Earth",
-      url: "https://rickandmortyapi.com/api/location/20"
-    },
-    image: "https://rickandmortyapi.com/api/character/avatar/361.jpeg",
-    episode: [
-      "https://rickandmortyapi.com/api/episode/27"
-    ],
-    url: "https://rickandmortyapi.com/api/character/361",
-    created: "2018-01-10T18:20:41.703Z",
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageCount, setPageCount] = useState<number | null>(null);
+
+  const { data: charactersWithPaginationInfo } = useAsync<CharactersWithPaginationData>(
+    () => rickAndMortyClient.getAllCharacters({ page: currentPage }),
+    [currentPage]
+  );
+
+  if (!pageCount && charactersWithPaginationInfo) {
+    const pageCount = charactersWithPaginationInfo.info.pages;
+    setPageCount(pageCount);
   }
-  ];
+
+  const characters = charactersWithPaginationInfo?.results;
 
   return (
     <section className="character-list">
       <Stack alignItems="center" spacing="50px">
-        <CharacterCards characters={characters} />
-        <Pagination />
+        {characters && characters.length && <CharacterCards characters={characters} />}
+        {pageCount && <Pagination onChange={(event: ChangeEvent<unknown>, page: number) => setCurrentPage(page)} page={currentPage} count={pageCount} />}
       </Stack>
     </section>
   )
