@@ -1,6 +1,7 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import ErrorBoundaryComp from "components/error-boundary.comp";
 import AppRoutes from "app.routes";
+import './app.scss';
 
 function App() {
   return (
