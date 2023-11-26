@@ -1,4 +1,4 @@
-import { CircularProgress, Pagination } from "@mui/material";
+import { Pagination } from "@mui/material";
 import { Stack } from "@mui/system";
 import CenteredLoader from "components/centered-loader.comp";
 import { useAsync } from "hooks";
@@ -17,7 +17,7 @@ const CharacterList: FC = () => {
   );
 
   if (isLoading) {
-    return <CenteredLoader />
+    return <CenteredLoader />;
   }
 
   if (!pageCount && charactersWithPaginationInfo) {
@@ -35,7 +35,7 @@ const CharacterList: FC = () => {
     <section className="character-list">
       <Stack alignItems="center" spacing="50px">
         {characters?.length && <CharacterCards characters={characters} />}
-        {pageCount && <Pagination onChange={handleCurrentPageChange} page={currentPage} count={pageCount} />}
+        {pageCount && <Pagination onChange={handleCurrentPageChange} page={currentPage} count={pageCount} size="large" />}
       </Stack>
     </section>
   );
