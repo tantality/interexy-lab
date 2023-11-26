@@ -1,12 +1,10 @@
 import PageLayout from "components/page-layout.comp";
-import { useParams } from "react-router-dom";
+import CharacterViewContent from "./components/character-view-conent.comp";
 
 const CharacterViewPage = () => {
-  const { characterId } = useParams();
-
   return (
     <PageLayout>
-      <section>character id: {characterId}</section>
+      <CharacterViewContent />
     </PageLayout>
   );
 };
