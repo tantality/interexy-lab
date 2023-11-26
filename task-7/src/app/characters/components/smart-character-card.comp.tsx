@@ -1,3 +1,4 @@
+import CenteredLoader from "components/centered-loader.comp";
 import { useAsync } from "hooks";
 import rickAndMortyClient from "providers/rick-and-morty.client";
 import { Character } from "providers/types/character.types";
@@ -9,7 +10,11 @@ interface SmartCharacterCardProps {
 }
 
 const SmartCharacterCard: FC<SmartCharacterCardProps> = ({ characterId }) => {
-  const { data: character } = useAsync<Character>(() => rickAndMortyClient.getCharacter(characterId), [characterId]);
+  const { data: character, isLoading } = useAsync<Character>(() => rickAndMortyClient.getCharacter(characterId), [characterId]);
+
+  if (isLoading) {
+    return <CenteredLoader />
+  }
 
   return (
     <>
