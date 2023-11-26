@@ -20,16 +20,20 @@ const CharacterList: FC = () => {
     setPageCount(pageCount);
   }
 
+  const handleCurrentPageChange = (event: ChangeEvent<unknown>, page: number): void => {
+    setCurrentPage(page);
+  };
+
   const characters = charactersWithPaginationInfo?.results;
 
   return (
     <section className="character-list">
       <Stack alignItems="center" spacing="50px">
-        {characters && characters.length && <CharacterCards characters={characters} />}
-        {pageCount && <Pagination onChange={(event: ChangeEvent<unknown>, page: number) => setCurrentPage(page)} page={currentPage} count={pageCount} />}
+        {characters?.length && <CharacterCards characters={characters} />}
+        {pageCount && <Pagination onChange={handleCurrentPageChange} page={currentPage} count={pageCount} />}
       </Stack>
     </section>
-  )
-}
+  );
+};
 
 export default CharacterList;
