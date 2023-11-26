@@ -1,8 +1,9 @@
+import CenteredLoader from "components/centered-loader.comp";
 import React, { FC, Suspense } from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
 
 const PublicRoute: FC<{ element: any }> = ({ element: Element }) => (
-  <Suspense fallback={<div />}>
+  <Suspense fallback={<CenteredLoader />}>
     <Element />
   </Suspense>
 );

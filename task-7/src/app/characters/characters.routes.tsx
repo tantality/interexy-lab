@@ -1,9 +1,10 @@
+import CenteredLoader from "components/centered-loader.comp";
 import React, { FC, PropsWithChildren, Suspense } from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
 
 const Suspended: FC<PropsWithChildren & { element: any }> = ({ element: Element }) => {
   return (
-    <Suspense fallback={<div >loading </div>}>
+    <Suspense fallback={<CenteredLoader />}>
       <Element />
     </Suspense>
   );
