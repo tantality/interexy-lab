@@ -17,7 +17,7 @@ const CharacterCard: FC<CharacterCardProps> = ({ character, cardMaxWidth, imgHei
   };
 
   return (
-    <Card sx={{ maxWidth: cardMaxWidth ?? null, minWidth: "300px" }}>
+    <Card sx={{ maxWidth: cardMaxWidth ?? null, minWidth: "300px", width: '100%' }}>
       <CardMedia image={image} title={name} sx={{ height: imgHeight ?? "300px" }} />
       <CardContent>
         <Stack rowGap="8px">
