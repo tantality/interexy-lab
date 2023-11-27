@@ -1,6 +1,7 @@
 import { Pagination } from "@mui/material";
 import { Stack } from "@mui/system";
 import CenteredLoader from "components/centered-loader.comp";
+import ErrorScreen from "components/error-screen.comp";
 import { useAsync } from "hooks";
 import rickAndMortyClient from "providers/rick-and-morty.client";
 import { CharactersWithPaginationData } from "providers/types/all-characters.types";
@@ -11,13 +12,17 @@ const CharacterList: FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageCount, setPageCount] = useState<number | null>(null);
 
-  const { data: charactersWithPaginationInfo, isLoading } = useAsync<CharactersWithPaginationData>(
+  const { data: charactersWithPaginationInfo, isLoading, error } = useAsync<CharactersWithPaginationData>(
     () => rickAndMortyClient.getAllCharacters({ page: currentPage }),
     [currentPage]
   );
 
   if (isLoading) {
     return <CenteredLoader />;
+  }
+
+  if (error) {
+    return <ErrorScreen error={error} />
   }
 
   if (!pageCount && charactersWithPaginationInfo) {

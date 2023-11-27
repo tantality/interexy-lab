@@ -1,4 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import ErrorScreen from './error-screen.comp';
 
 interface Props {
   children?: ReactNode;
@@ -23,7 +24,7 @@ class ErrorBoundaryComp extends Component<Props, State> {
 
   public render() {
     if (this.state.hasError) {
-      return <h1>Ooops... Something went wrong</h1>;
+      return <ErrorScreen />;
     }
 
     return this.props.children;
