@@ -36,6 +36,15 @@ export class PostsRepo {
     });
   }
 
+  async updateOne(id: string, post: Pick<Post, 'content' | 'title'>) {
+    return await this.prisma.post.update({
+      where: { id },
+      data: {
+        ...post,
+      },
+    });
+  }
+
   async deleteOne(id: string) {
     await this.prisma.post.delete({ where: { id } });
   }

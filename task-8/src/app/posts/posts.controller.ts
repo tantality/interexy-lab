@@ -7,9 +7,11 @@ import {
   Param,
   Get,
   NotFoundException,
+  Put,
 } from '@nestjs/common';
 import { PostDto } from 'domain/dto/post.dto';
 import { CreatePostForm } from './domain/create-post.form';
+import { UpdatePostForm } from './domain/update-post.form';
 import { PostsService } from './posts.service';
 
 @Controller('posts')
@@ -58,6 +60,22 @@ export class PostsController {
     );
 
     return PostDto.fromEntity(createdPost);
+  }
+
+  @Put(':id')
+  async updatePost(@Param('id') id: string, @Body() body: UpdatePostForm) {
+    const post = await this.postsService.findPostByIdAndAuthorId(
+      id,
+      this.mock_author_id,
+    );
+
+    if (!post) {
+      throw new NotFoundException(`Post isn't found`);
+    }
+
+    const updatedPost = await this.postsService.updatePost(id, body);
+
+    return PostDto.fromEntity(updatedPost);
   }
 
   @Delete(':id')

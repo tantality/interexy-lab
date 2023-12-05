@@ -26,6 +26,10 @@ export class PostsService {
     return await this.postsRepo.createOne(authorId, post);
   }
 
+  async updatePost(id: string, post: Pick<Post, 'content' | 'title'>) {
+    return await this.postsRepo.updateOne(id, post);
+  }
+
   async deletePost(id: string) {
     await this.postsRepo.deleteOne(id);
   }
