@@ -6,6 +6,10 @@ import { PostsRepo } from 'domain/repos/posts.repo';
 export class PostsService {
   constructor(private postsRepo: PostsRepo) {}
 
+  async findAllPosts() {
+    return this.postsRepo.findAllPosts();
+  }
+
   async findPostByIdAndAuthorId(postId: string, authorId: string) {
     return this.postsRepo.findOneByIdAndAuthorId(postId, authorId);
   }

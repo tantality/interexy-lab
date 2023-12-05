@@ -5,6 +5,7 @@ import {
   Post,
   Delete,
   Param,
+  Get,
   NotFoundException,
 } from '@nestjs/common';
 import { PostDto } from 'domain/dto/post.dto';
@@ -16,6 +17,12 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   mock_author_id = '73dc4871-1327-4fcc-94dd-2c1b8c08cf80';
+
+  @Get()
+  async getPosts() {
+    const posts = await this.postsService.findAllPosts();
+    return PostDto.fromEntities(posts);
+  }
 
   @Post()
   async createPost(@Body() body: CreatePostForm) {

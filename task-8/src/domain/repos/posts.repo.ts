@@ -6,6 +6,10 @@ import { PrismaService } from 'libs/prisma/prisma.service';
 export class PostsRepo {
   constructor(private readonly prisma: PrismaService) {}
 
+  async findAllPosts() {
+    return this.prisma.post.findMany();
+  }
+
   async findOneByIdAndAuthorId(postId: string, authorId: string) {
     return this.prisma.post.findUnique({
       where: { author_id: authorId, id: postId },
