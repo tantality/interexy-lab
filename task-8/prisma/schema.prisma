@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RoleTypes {
+  Guest  @map("guest")
+  Admin  @map("admin")
+  User   @map("user")
+  Client @map("client")
+}
+
+enum UserPermissions {
+  All @map("permissions.all")
+}
+
+model Role {
+  id          String            @id @default(uuid()) @db.Uuid
+  created_at  DateTime          @default(now()) @db.Timestamptz()
+  updated_at  DateTime          @default(now()) @updatedAt @db.Timestamptz()
+  type        RoleTypes
+  permissions UserPermissions[]
+
+  users User[]
+
+  @@map("roles")
+}
+
+model User {
+  id                 String   @id @default(uuid()) @db.Uuid
+  created_at         DateTime @default(now()) @db.Timestamptz()
+  updated_at         DateTime @default(now()) @updatedAt @db.Timestamptz()
+  profile_first_name String   @db.VarChar(256)
+  profile_last_name  String   @db.VarChar(256)
+  email              String   @db.VarChar(256)
+  normalized_email   String   @db.VarChar(256)
+  password           String   @db.VarChar(256)
+
+  posts   Post[]
+  role    Role   @relation(fields: [role_id], references: [id])
+  role_id String @db.Uuid
+
+  @@map("users")
+}
+
+model Post {
+  id         String   @id @default(uuid()) @db.Uuid
+  title      String   @unique
+  content    String
+  created_at DateTime @default(now()) @db.Timestamptz()
+  updated_at DateTime @default(now()) @updatedAt @db.Timestamptz()
+
+  author    User   @relation(fields: [author_id], references: [id])
+  author_id String @db.Uuid
+
+  @@map("posts")
+}
