@@ -5,9 +5,9 @@ export class PostDto extends UUIDDto {
   id: string;
   title: string;
   content: string;
-  created_at: number;
-  updated_at: number;
-
+  createdAt: number;
+  updatedAt: number;
+  authorId: string;
   author?: User;
 
   static fromEntity(entity?: Post & { author?: User }) {
@@ -19,6 +19,7 @@ export class PostDto extends UUIDDto {
     it.id = entity.id;
     it.title = entity.title;
     it.content = entity.content;
+    it.authorId = entity.author_id;
     it.author = entity.author;
     it.created_at = entity.created_at.valueOf();
     it.updated_at = entity.updated_at.valueOf();
