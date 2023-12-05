@@ -25,6 +25,15 @@ export class PostsController {
       throw new BadRequestException('error', errors.join(','));
     }
 
+    const postEntity = await this.postsService.findOneByTitleAndAuthorId(
+      body,
+      this.mock_author_id,
+    );
+
+    if (postEntity) {
+      throw new BadRequestException('Post already exists');
+    }
+
     const createdPostEntity = await this.postsService.createPost(
       this.mock_author_id,
       form,

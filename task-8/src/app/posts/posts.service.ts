@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Post } from '@prisma/client';
 import { PostsRepo } from 'domain/repos/posts.repo';
 
@@ -10,19 +10,12 @@ export class PostsService {
     return this.postsRepo.findOneByIdAndAuthorId(postId, authorId);
   }
 
+  async findOneByTitleAndAuthorId(post: Pick<Post, 'title'>, authorId: string) {
+    return this.postsRepo.findOneByTitleAndAuthorId(post, authorId);
+  }
+
   async createPost(authorId: string, post: Pick<Post, 'content' | 'title'>) {
-    const existingPost = await this.postsRepo.findOneByTitleAndAuthorId(
-      post,
-      authorId,
-    );
-
-    if (existingPost) {
-      throw new BadRequestException('Post already exists');
-    }
-
-    const createdPost = await this.postsRepo.createOne(authorId, post);
-
-    return createdPost;
+    return await this.postsRepo.createOne(authorId, post);
   }
 
   async deletePost(id: string) {
