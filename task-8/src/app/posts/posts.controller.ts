@@ -1,4 +1,12 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Post,
+  Delete,
+  Param,
+  NotFoundException,
+} from '@nestjs/common';
 import { PostDto } from 'domain/dto/post.dto';
 import { CreatePostForm } from './domain/create-post.form';
 import { PostsService } from './posts.service';
@@ -23,5 +31,19 @@ export class PostsController {
     );
 
     return PostDto.fromEntity(postEntity);
+  }
+
+  @Delete(':id')
+  async deletePost(@Param('id') post_id: string) {
+    const postEntity = await this.postsService.findAuthorPostById(
+      this.mock_author_id,
+      post_id,
+    );
+
+    if (!postEntity) {
+      throw new NotFoundException(`Post isn't found`);
+    }
+
+    await this.postsService.deletePost(post_id);
   }
 }

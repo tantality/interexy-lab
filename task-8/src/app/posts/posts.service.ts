@@ -6,6 +6,10 @@ import { PostsRepo } from 'domain/repos/posts.repo';
 export class PostsService {
   constructor(private postsRepo: PostsRepo) {}
 
+  async findAuthorPostById(authorId: string, postId: string) {
+    return this.postsRepo.findAuthorPostById(authorId, postId);
+  }
+
   async createAuthorPost(
     author_id: string,
     post: Pick<Post, 'content' | 'title'>,
@@ -22,5 +26,9 @@ export class PostsService {
     const createdPost = await this.postsRepo.createAuthorPost(author_id, post);
 
     return createdPost;
+  }
+
+  async deletePost(post_id: string) {
+    await this.postsRepo.deletePost(post_id);
   }
 }
