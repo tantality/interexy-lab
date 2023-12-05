@@ -6,32 +6,29 @@ import { PrismaService } from 'libs/prisma/prisma.service';
 export class PostsRepo {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAuthorPostById(authorId: string, postId: string) {
+  async findOneByIdAndAuthorId(postId: string, authorId: string) {
     return this.prisma.post.findUnique({
       where: { author_id: authorId, id: postId },
     });
   }
 
-  async findAuthorPostByTitle(author_id: string, post: Pick<Post, 'title'>) {
+  async findOneByTitleAndAuthorId(post: Pick<Post, 'title'>, authorId: string) {
     return await this.prisma.post.findUnique({
-      where: { title: post.title, author_id },
+      where: { author_id_title: { author_id: authorId, title: post.title } },
     });
   }
 
-  async createAuthorPost(
-    author_id: string,
-    post: Pick<Post, 'title' | 'content'>,
-  ) {
+  async createOne(authorId: string, post: Pick<Post, 'title' | 'content'>) {
     return await this.prisma.post.create({
       data: {
-        author_id,
+        author_id: authorId,
         content: post.content,
         title: post.title,
       },
     });
   }
 
-  async deletePost(post_id: string) {
-    await this.prisma.post.delete({ where: { id: post_id } });
+  async deleteOne(id: string) {
+    await this.prisma.post.delete({ where: { id } });
   }
 }

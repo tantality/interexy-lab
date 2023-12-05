@@ -25,25 +25,25 @@ export class PostsController {
       throw new BadRequestException('error', errors.join(','));
     }
 
-    const postEntity = await this.postsService.createAuthorPost(
+    const createdPostEntity = await this.postsService.createPost(
       this.mock_author_id,
       form,
     );
 
-    return PostDto.fromEntity(postEntity);
+    return PostDto.fromEntity(createdPostEntity);
   }
 
   @Delete(':id')
-  async deletePost(@Param('id') post_id: string) {
-    const postEntity = await this.postsService.findAuthorPostById(
+  async deletePost(@Param('id') id: string) {
+    const postEntity = await this.postsService.findPostByIdAndAuthorId(
+      id,
       this.mock_author_id,
-      post_id,
     );
 
     if (!postEntity) {
       throw new NotFoundException(`Post isn't found`);
     }
 
-    await this.postsService.deletePost(post_id);
+    await this.postsService.deletePost(id);
   }
 }

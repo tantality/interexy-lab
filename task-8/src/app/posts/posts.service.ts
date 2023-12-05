@@ -6,29 +6,26 @@ import { PostsRepo } from 'domain/repos/posts.repo';
 export class PostsService {
   constructor(private postsRepo: PostsRepo) {}
 
-  async findAuthorPostById(authorId: string, postId: string) {
-    return this.postsRepo.findAuthorPostById(authorId, postId);
+  async findPostByIdAndAuthorId(postId: string, authorId: string) {
+    return this.postsRepo.findOneByIdAndAuthorId(postId, authorId);
   }
 
-  async createAuthorPost(
-    author_id: string,
-    post: Pick<Post, 'content' | 'title'>,
-  ) {
-    const existingPost = await this.postsRepo.findAuthorPostByTitle(
-      author_id,
+  async createPost(authorId: string, post: Pick<Post, 'content' | 'title'>) {
+    const existingPost = await this.postsRepo.findOneByTitleAndAuthorId(
       post,
+      authorId,
     );
 
     if (existingPost) {
       throw new BadRequestException('Post already exists');
     }
 
-    const createdPost = await this.postsRepo.createAuthorPost(author_id, post);
+    const createdPost = await this.postsRepo.createOne(authorId, post);
 
     return createdPost;
   }
 
-  async deletePost(post_id: string) {
-    await this.postsRepo.deletePost(post_id);
+  async deletePost(id: string) {
+    await this.postsRepo.deleteOne(id);
   }
 }
