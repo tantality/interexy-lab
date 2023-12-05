@@ -10,6 +10,10 @@ export class PostsRepo {
     return this.prisma.post.findMany();
   }
 
+  async findOneById(id: string) {
+    return this.prisma.post.findUnique({ where: { id } });
+  }
+
   async findOneByIdAndAuthorId(postId: string, authorId: string) {
     return this.prisma.post.findUnique({
       where: { author_id: authorId, id: postId },

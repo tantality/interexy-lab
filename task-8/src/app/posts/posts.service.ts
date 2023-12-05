@@ -10,6 +10,10 @@ export class PostsService {
     return this.postsRepo.findAllPosts();
   }
 
+  async findPostById(id: string) {
+    return this.postsRepo.findOneById(id);
+  }
+
   async findPostByIdAndAuthorId(postId: string, authorId: string) {
     return this.postsRepo.findOneByIdAndAuthorId(postId, authorId);
   }

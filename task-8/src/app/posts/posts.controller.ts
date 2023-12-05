@@ -24,6 +24,17 @@ export class PostsController {
     return PostDto.fromEntities(posts);
   }
 
+  @Get(':id')
+  async getPost(@Param('id') id: string) {
+    const post = await this.postsService.findPostById(id);
+
+    if (!post) {
+      throw new NotFoundException(`Post isn't found`);
+    }
+
+    return PostDto.fromEntity(post);
+  }
+
   @Post()
   async createPost(@Body() body: CreatePostForm) {
     const form = CreatePostForm.from(body);
