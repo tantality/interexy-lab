@@ -8,5 +8,6 @@ import { RolesService } from './roles.service';
   imports: [PrismaModule],
   controllers: [RolesController],
   providers: [RolesService, RolesRepo],
+  exports: [RolesService, RolesRepo],
 })
 export class RolesModule {}
