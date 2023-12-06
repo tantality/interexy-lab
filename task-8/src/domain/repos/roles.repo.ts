@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Role } from '@prisma/client';
+import { RoleTypes } from '@prisma/client';
 import { PrismaService } from 'libs/prisma/prisma.service';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class RolesRepo {
     return await this.prisma.role.findMany();
   }
 
-  async findOneByType(type: Pick<Role, 'type'>) {
+  async findOneByType(type: RoleTypes) {
     return await this.prisma.role.findUnique({ where: { type } });
   }
 }
