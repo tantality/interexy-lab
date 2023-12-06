@@ -38,7 +38,7 @@ model User {
   profile_first_name String   @db.VarChar(256)
   profile_last_name  String   @db.VarChar(256)
   email              String   @db.VarChar(256)
-  normalized_email   String   @db.VarChar(256)
+  normalized_email   String   @unique @db.VarChar(256)
   password           String   @db.VarChar(256)
 
   posts   Post[]
