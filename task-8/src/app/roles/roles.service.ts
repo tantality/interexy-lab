@@ -4,4 +4,8 @@ import { RolesRepo } from 'domain/repos/roles.repo';
 @Injectable()
 export class RolesService {
   constructor(private rolesRepo: RolesRepo) {}
+
+  async findRoles() {
+    return await this.rolesRepo.findRoles();
+  }
 }

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PostsRepo } from 'domain/repos/posts.repo';
+import { RolesRepo } from 'domain/repos/roles.repo';
 import { PrismaModule } from 'libs/prisma/prisma.module';
 import { RolesController } from './roles.controller';
 import { RolesService } from './roles.service';
@@ -7,6 +7,6 @@ import { RolesService } from './roles.service';
 @Module({
   imports: [PrismaModule],
   controllers: [RolesController],
-  providers: [RolesService, PostsRepo],
+  providers: [RolesService, RolesRepo],
 })
-export class PostsModule {}
+export class RolesModule {}
