@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Body,
   Controller,
   InternalServerErrorException,
   Post,
@@ -13,7 +14,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
-  async signup(body: SignUpForm) {
+  async signup(@Body() body: SignUpForm) {
     const normEmail = normalizeEmail(body.email);
     const user = await this.authService.findUserByNormalizedEmail(normEmail);
 
