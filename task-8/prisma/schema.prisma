@@ -11,10 +11,8 @@ datasource db {
 }
 
 enum RoleTypes {
-  Guest  @map("guest")
-  Admin  @map("admin")
-  User   @map("user")
-  Client @map("client")
+  Admin @map("admin")
+  User  @map("user")
 }
 
 enum UserPermissions {
