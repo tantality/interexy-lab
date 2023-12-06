@@ -15,6 +15,12 @@ export class AuthService {
     private securityService: SecurityService,
   ) {}
 
+  async findUserByNormalizedEmail(normEmail: string) {
+    return await this.usersRepo.findOneByNormalizedEmail({
+      normalized_email: normEmail,
+    });
+  }
+
   async makeNewUser(form: SignUpForm & Pick<User, 'normalized_email'>) {
     const role = await this.rolesRepo.findOneByType(RoleTypes.User);
     if (!role) {

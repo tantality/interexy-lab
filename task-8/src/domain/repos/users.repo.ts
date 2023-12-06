@@ -6,6 +6,12 @@ import { PrismaService } from 'libs/prisma/prisma.service';
 export class UsersRepo {
   constructor(private readonly prisma: PrismaService) {}
 
+  async findOneByNormalizedEmail(user: Pick<User, 'normalized_email'>) {
+    return await this.prisma.user.findUnique({
+      where: { normalized_email: user.normalized_email },
+    });
+  }
+
   async createOne(user: Omit<User, 'created_at' | 'updated_at' | 'id'>) {
     return await this.prisma.user.create({
       data: {
